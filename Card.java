@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 
 public class Card {
 	public enum Suit {clubs, spades, hearts, diamonds};
@@ -86,6 +87,52 @@ public class Card {
 		}
 	}
 	
+	public static Rank getRankFromInt(int rank) {
+		switch(rank) {
+			case 1:
+				return Rank.ace;
+			
+			case 2:
+				return Rank.two;
+			
+			case 3:
+				return Rank.three;
+			
+			case 4:
+				return Rank.four;
+				
+			case 5:
+				return Rank.five;
+			
+			case 6:
+				return Rank.six;
+				
+			case 7:
+				return Rank.seven;
+			
+			case 8:
+				return Rank.eight;
+			
+			case 9:
+				return Rank.nine;
+				
+			case 10:
+				return Rank.ten;
+				
+			case 11:
+				return Rank.jack;
+				
+			case 12:
+				return Rank.queen;
+			
+			case 13:
+				return Rank.king;
+				
+			default:
+				return Rank.ace;
+		}
+	}
+	
 	/**
 	 * Returns a card in a readable format
 	 */
@@ -126,6 +173,7 @@ public class Card {
 		}
 	}
 	
+
 	/**
 	 * Deals the cards evenly to two different players (26 per player) 
 	 * @param deck

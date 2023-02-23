@@ -370,6 +370,38 @@ public class Winner_Logic {
 		
 	}
 	
+	public int highCard(Player player) {
+		Card card1 = player.getCard(1);
+		int card1Int = Card.getNumRank(card1);
+		
+		Card card2 = player.getCard(2);
+		int card2Int = Card.getNumRank(card2);
+		
+		int highCard = -1;
+		if(card1Int == 1 || card2Int == 1) {
+			return 1;
+		}
+			if(card1Int >= card2Int) {
+				highCard = card1Int;
+			}else {
+				highCard = card2Int;
+			}
+			
+			//comparing to CC
+			int[] communityCardsInt = new int[5]; 
+			for(int i = 0; i < communityCardsInt.length; i++) {
+				communityCardsInt[i] = Card.getNumRank(communityCards[i]);
+			}
+			
+			for(int i = 0; i < communityCardsInt.length; i++) {
+				if(highCard < communityCardsInt[i]) {
+					highCard = communityCardsInt[i];
+				}
+			}
+			return highCard; 
+		
+	}
+	
 	public boolean twoPair(int playerNum) {
 		Card card1 = players[playerNum].getCard(1);
 		Card card2 = players[playerNum].getCard(2); 
@@ -412,6 +444,9 @@ public class Winner_Logic {
 			if(players[i].getHand() < winningHand) {
 				playerNumWinner = i;
 				winningHand = players[i].getHand();
+				
+			}else if(players[i].getHand() == winningHand) {
+				playerNumWinner = higherPair(players, playerNumWinner, i);
 			}
 		}
 		
@@ -419,4 +454,48 @@ public class Winner_Logic {
 		return playerNumWinner;
 	}
 	
+	/**
+	 * Picks which player won for a pair
+	 * @param players
+	 * @param possWin1
+	 * @param possWin2
+	 * @return index_Of_Player
+	 */
+	public int higherPair(Player[] players, int possWin1, int possWin2) {
+		Card cardValP1; 
+		Card cardValP2;		
+		
+		if(!pocketCheck(possWin1) && !pocketCheck(possWin2)) {
+			if(pairCheck(players[possWin1].getCard(1))) {
+				cardValP1 = players[possWin1].getCard(1);
+			
+			}else {
+				cardValP1 = players[possWin1].getCard(2); 
+			}
+			
+			
+			if(pairCheck(players[possWin2].getCard(1))) {
+				cardValP2 = players[possWin2].getCard(1);
+				
+			}else {
+				cardValP2 = players[possWin2].getCard(2);	
+			}
+			
+			
+		}else {
+			cardValP1 = players[possWin1].getCard(1);
+			cardValP2 = players[possWin2].getCard(1);
+		}
+		
+		int val1 = Card.getNumRank(cardValP1);
+		int val2 = Card.getNumRank(cardValP1);
+		
+		if((val1 == 1 || val1 > val2) && (val2 != 1)) {
+			return possWin1;
+		
+		}else {
+			return possWin2;
+		}
+	}
+		
 }

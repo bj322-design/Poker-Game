@@ -95,6 +95,56 @@ public class Player {
 		}
 	}
 	
+	public String handFinder(Player players, Player[] p, Card[] cc) {
+		Winner_Logic wl = new Winner_Logic(p, cc);
+		int hand = players.getHand();
+		String output = "";
+		
+		if(hand == 1){
+				output = "Royal Flush";
+		
+		}else if(hand == 2) {
+				output = "Straight Flush";
+		
+		}else if(hand == 3) {
+				output = "Four of kind of " + players.getCard(1);
+		
+		}else if(hand == 4) {
+			output = "Full House";
+		
+		}else if(hand == 5) {
+				output = "Flush " + (players.getCard(1)).getSuit();
+			
+		}else if(hand == 6) {
+				output = "Stright"; 
+		
+		}else if(hand == 7) {
+				if(wl.threeOfAKind(players.getCard(1))) {
+					output = "Three of a kind of " + players.getCard(1).getRank();
+				}else {
+					output = "Three of a kind of " + players.getCard(2).getRank();
+				}
+		
+		}else if(hand == 8) {
+				output = "Two pairs";
+		
+		}else if(hand == 9) {
+				output = "Pocket " + players.getCard(1).getRank();
+		
+		}else if(hand == 10) {
+				if(wl.pairCheck(players.getCard(1))) {
+					output = "Pair of " + players.getCard(1).getRank();
+				}else {
+					output = "Pair of " + players.getCard(2).getRank();
+				}
+				
+		}else if(hand == 11) {
+				output = Card.getRankFromInt(wl.highCard(players)) + " high";
+		}
+		
+		return output;
+	}
+	
 	public void setHand(int hand) {
 		this.hand = hand; 
 	

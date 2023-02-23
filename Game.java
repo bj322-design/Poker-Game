@@ -138,20 +138,20 @@ output += "Player " + (i + 1) + " has a royal flush " + royalFlush + "\n";
 		
 		
 System.out.println();
-output += "\n";
 		int highCard = -1;
 		for(int i = 0; i < players.length; i ++) {
 			highCard = wl.highCard(i);
 			System.out.println("Player " + (i + 1) + " has a high card of: " + highCard); 
-output += "Player " + (i + 1) + " has a high card of: " + highCard; 
+output += "\nPlayer " + (i + 1) + " has a high card of: " + highCard; 
 		}
 		
 		//comparing to find winner
 System.out.println();
 		Player.setHands(players, communityCards);
 		int winner = wl.win();
-		System.out.println("Player " + (winner + 1) + " wins with a " + players[winner].getHand());
-		
+		System.out.println("Player " + (winner + 1) + " wins with a " + players[winner].handFinder(players[winner], players, communityCards));
+
+output += "\n\nPlayer " + (winner + 1) + " wins with a " + players[winner].handFinder(players[winner], players, communityCards);	
 output += "\n****************************************\n\n";
 Print_To_File.filePrinter(output);
 		
